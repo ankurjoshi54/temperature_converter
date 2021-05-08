@@ -11,7 +11,7 @@ redis:
   name: temperature-converter
   node:
     type: redis
-    node: "127.0.0.1:6379"
+    node: <path> # For example: "127.0.0.1:6379"
   redisCodec:
     type: string
   clientResources:
@@ -20,4 +20,4 @@ redis:
       type: default
       enabled: false
 
-version: 0.0.1
+version: <app_version> # For example: 0.0.1
