@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClass.set("org.example.temperatureconverter.TemperatureConverterApp")
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    implementation 'io.dropwizard:dropwizard-core:2.0.21'
+    implementation 'io.dropwizard.modules:dropwizard-redis:1.5.1'
+}
+
+run {
+    args = ['server', 'temperature_converter.yaml']
+}
+
+test {
+    useJUnitPlatform()
+}
