@@ -1,0 +1,23 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+
+redis:
+  type: basic
+  name: temperature-converter
+  node:
+    type: redis
+    node: "127.0.0.1:6379"
+  redisCodec:
+    type: string
+  clientResources:
+    type: default
+    commandLatencyCollector:
+      type: default
+      enabled: false
+
+version: 0.0.1
