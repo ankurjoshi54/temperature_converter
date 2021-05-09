@@ -2,6 +2,7 @@ package org.example.temperatureconverter.serializers;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.example.temperatureconverter.caches.TemperatureCache;
+import org.example.temperatureconverter.services.converter.TemperatureConverter;
 
 public class Temperature {
     private String unit;
@@ -27,24 +28,11 @@ public class Temperature {
 
     @JsonProperty
     public Double getValue() {
-        if (null == this.cache) return toCelsius(this.value);
-
-        return this.cache.getTemperature(this.value).orElseGet(() -> toCelsius(this.value));
+        return TemperatureConverter.getCelsius(this.value, this.cache);
     }
 
     @JsonProperty
     public String getVersion() {
         return version;
-    }
-
-    private Double toCelsius(Double fahrenheit) {
-        // TODO: Store value in such a way as to not overload the server with temperature values
-        Double celsius = ((fahrenheit - 32) * 5) / 9;
-        if (this.cache != null) {
-            System.out.println("Value not present in cache, processing value: " + fahrenheit);
-            this.cache.setTemperature(fahrenheit, celsius);
-        }
-
-        return celsius;
     }
 }

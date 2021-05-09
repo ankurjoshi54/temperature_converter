@@ -39,17 +39,18 @@ public class TemperatureConverterApp extends Application<TemperatureConverterCon
     @Override
     public void run(TemperatureConverterConfig configuration,
                     Environment environment) {
+        final TemperatureConverterHealthCheck temperatureConverterHealthCheck =
+                new TemperatureConverterHealthCheck();
+        environment.healthChecks().register("temperature-converter-logic", temperatureConverterHealthCheck);
+        // TODO: Debug why redis healthcheck aren't added by redis bundle.
+        // System.out.println("environment = " + environment.healthChecks().getNames());
+
         final StatefulRedisConnection<String, String> connection = redis.getConnection();
         final TemperatureCache temperatureCache = new TemperatureCache(connection);
         final TemperatureConverterRes resource = new TemperatureConverterRes(
                 configuration.getVersion(),
                 temperatureCache
         );
-        final TemperatureConverterHealthCheck temperatureConverterHealthCheck =
-                new TemperatureConverterHealthCheck();
-        // TODO: Debug why redis healthcheck aren't added by redis bundle.
-        environment.healthChecks().register("temperature-converter-logic", temperatureConverterHealthCheck);
-        System.out.println("environment = " + environment.healthChecks().getNames());
         environment.jersey().register(resource);
     }
 }
