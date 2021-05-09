@@ -7,12 +7,10 @@ import io.lettuce.core.api.sync.RedisCommands;
 import java.util.Optional;
 
 public class TemperatureCache {
-    private final StatefulRedisConnection<String, String> redisConnection;
     private final RedisCommands<String, String> sync;
 
     public TemperatureCache(StatefulRedisConnection<String, String> redisConnection) {
-        this.redisConnection = redisConnection;
-        this.sync = this.redisConnection.sync();
+        this.sync = redisConnection.sync();
     }
 
     public Optional<Double> getTemperature(Double fahrenheit) {

@@ -27,6 +27,8 @@ public class Temperature {
 
     @JsonProperty
     public Double getValue() {
+        if (null == this.cache) return toCelsius(this.value);
+
         return this.cache.getTemperature(this.value).orElseGet(() -> toCelsius(this.value));
     }
 
@@ -37,9 +39,12 @@ public class Temperature {
 
     private Double toCelsius(Double fahrenheit) {
         // TODO: Store value in such a way as to not overload the server with temperature values
-        System.out.println("Value not present in cache, processing value: " + fahrenheit);
         Double celsius = ((fahrenheit - 32) * 5) / 9;
-        this.cache.setTemperature(fahrenheit, celsius);
+        if (this.cache != null) {
+            System.out.println("Value not present in cache, processing value: " + fahrenheit);
+            this.cache.setTemperature(fahrenheit, celsius);
+        }
+
         return celsius;
     }
 }

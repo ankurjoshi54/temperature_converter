@@ -8,7 +8,7 @@ import io.dropwizard.setup.Environment;
 import io.lettuce.core.api.StatefulRedisConnection;
 
 import org.example.temperatureconverter.caches.TemperatureCache;
-import org.example.temperatureconverter.healthchecks.RedisHealthCheck;
+import org.example.temperatureconverter.healthchecks.TemperatureConverterHealthCheck;
 import org.example.temperatureconverter.resources.TemperatureConverterRes;
 
 public class TemperatureConverterApp extends Application<TemperatureConverterConfig>{
@@ -45,8 +45,11 @@ public class TemperatureConverterApp extends Application<TemperatureConverterCon
                 configuration.getVersion(),
                 temperatureCache
         );
-        final RedisHealthCheck redisHealth = new RedisHealthCheck();
-        environment.healthChecks().register("redis_health", redisHealth);
+        final TemperatureConverterHealthCheck temperatureConverterHealthCheck =
+                new TemperatureConverterHealthCheck();
+        // TODO: Debug why redis healthcheck aren't added by redis bundle.
+        environment.healthChecks().register("temperature-converter-logic", temperatureConverterHealthCheck);
+        System.out.println("environment = " + environment.healthChecks().getNames());
         environment.jersey().register(resource);
     }
 }
