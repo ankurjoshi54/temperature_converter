@@ -1,0 +1,13 @@
+# Gradle files
+.gradle
+
+# IDE Files
+.idea
+
+# Log & temp files
+log/*
+tmp/*
+
+# Git files
+README.md
+LICENSE

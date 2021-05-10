@@ -1,0 +1,32 @@
+version: "3.9"
+
+x-application: &application
+  build:
+    context: .
+    dockerfile: .local/Dockerfile
+  image: temperature-converter
+  depends_on:
+    - redis
+  volumes:
+    - .:/app
+  stdin_open: true
+  tty: true
+
+services:
+  web:
+    << : *application
+    ports:
+      - 8080:8080
+      - 8081:8081
+    command: ["./gradlew", "run"]
+  redis:
+    image: redis:6.2.3-alpine
+    command: [ "redis-server", "--appendonly", "yes" ]
+    hostname: redis
+    volumes:
+      - .local/data/redis:/data
+    ports:
+      - 6378:6379
+  test:
+    <<: *application
+    command: ["./gradlew", "test"]

@@ -9,7 +9,10 @@
 /build/
 
 # Application
-temperature_converter.yaml
+/temperature_converter.yaml
+
+# Local files
+.local/data
 
 logs
 
