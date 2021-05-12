@@ -1,5 +1,11 @@
 pipeline {
   agent any
+  options {
+    skipDefaultCheckout()
+  }
+  environment {
+    PATH = "$PATH:/usr/local/bin"
+  }
 
   stages {
     stage('build') {
