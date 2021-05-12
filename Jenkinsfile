@@ -1,21 +1,16 @@
 pipeline {
-  agent {
-    node {
-      label 'controller'
-    }
+  agent any
 
-  }
   stages {
     stage('build') {
       steps {
-        git(url: 'https://github.com/ankurjoshi54/temperature_converter.git', branch: 'master')
-        sh './gradlew clean build'
+        checkout scm
       }
     }
 
     stage('test') {
       steps {
-        sh './gradlew test'
+        sh 'docker-compose up test'
       }
     }
 
