@@ -1,0 +1,2 @@
+FROM jenkins/jenkins:2.60.3
+RUN /usr/local/bin/install-plugins.sh blueocean:1.24.6 docker-workflow:1.26
