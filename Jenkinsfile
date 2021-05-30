@@ -16,7 +16,7 @@ pipeline {
 
     stage('test') {
       steps {
-        sh 'docker-compose up test --abort-on-container-exit'
+        sh 'docker-compose up --abort-on-container-exit test'
       }
     }
   }
