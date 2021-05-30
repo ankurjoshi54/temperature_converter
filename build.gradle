@@ -48,7 +48,7 @@ jacocoTestReport {
 
     reports {
         xml.enabled true
-        xml.destination(file("${buildDir}/reports/jacoco/all-tests/xml"))
+        xml.destination(file("${buildDir}/reports/jacoco/all-tests/report.xml"))
         html.enabled true
         html.destination(file("${buildDir}/reports/jacoco/all-tests/html"))
     }
