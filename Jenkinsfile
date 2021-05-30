@@ -16,15 +16,18 @@ pipeline {
 
     stage('test') {
       steps {
-        sh 'docker-compose up --abort-on-container-exit test'
+        sh 'docker compose up --abort-on-container-exit test'
       }
     }
   }
 
   post {
-      always {
-          junit 'build/reports/**/*.xml'
-          step( [ $class: 'JacocoPublisher' ] )
-      }
+    success {
+      junit 'build/reports/**/*.xml'
+      step( [ $class: 'JacocoPublisher' ] )
+    }
+    always {
+        sh 'docker compose down test'
+    }
   }
 }
