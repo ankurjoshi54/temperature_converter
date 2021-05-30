@@ -23,8 +23,8 @@ services:
     image: redis:6.2.3-alpine
     command: [ "redis-server", "--appendonly", "yes" ]
     hostname: redis
-    volumes:
-      - .local/data/redis:/data
+#    volumes:
+#      - .local/data/redis:/data
     ports:
       - 6378:6379
   test:
