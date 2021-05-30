@@ -1,10 +1,16 @@
 plugins {
     id 'java'
     id 'application'
+    id 'jacoco'
 }
 
 group 'org.example'
 version '1.0-SNAPSHOT'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+apply from: 'integration-test.gradle'
 
 repositories {
     mavenCentral()
@@ -34,5 +40,16 @@ test {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed", "standardError"
+    }
+}
+
+jacocoTestReport {
+    getExecutionData().setFrom(fileTree(buildDir).include("/jacoco/*.exec"))
+
+    reports {
+        xml.enabled true
+        xml.destination(file("${buildDir}/reports/jacoco/all-tests/xml"))
+        html.enabled true
+        html.destination(file("${buildDir}/reports/jacoco/all-tests/html"))
     }
 }

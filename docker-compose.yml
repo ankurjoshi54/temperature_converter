@@ -29,4 +29,4 @@ services:
       - 6378:6379
   test:
     <<: *application
-    command: ["./gradlew", "test"]
+    command: ["./gradlew", "check"]

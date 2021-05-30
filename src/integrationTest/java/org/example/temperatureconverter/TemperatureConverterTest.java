@@ -1,4 +1,4 @@
-package org.example.temperatureconverter.integration;
+package org.example.temperatureconverter;
 
 import io.dropwizard.testing.ResourceHelpers;
 import io.dropwizard.testing.junit5.DropwizardAppExtension;

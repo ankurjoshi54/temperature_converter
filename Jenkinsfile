@@ -19,6 +19,12 @@ pipeline {
         sh 'docker-compose up test --abort-on-container-exit'
       }
     }
+  }
 
+  post {
+      always {
+          junit 'build/reports/**/*.xml'
+          step( [ $class: 'JacocoPublisher' ] )
+      }
   }
 }
